@@ -1,0 +1,34 @@
+version: "3.9"
+   
+services:
+  db:
+    image: postgres:15
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    networks:
+      - tp-devops-nw
+    restart: unless-stopped
+
+  web:
+    build: .
+    command: ./manage.py runserver 0.0.0.0:${PORT}
+    env_file:
+      - .env
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      - POSTGRES_NAME=${POSTGRES_DB}
+      - POSTGRES_HOST=db      
+    depends_on:
+      - db
+    networks:
+      - tp-devops-nw
+
+
+networks:
+  tp-devops-nw:
+    driver: bridge

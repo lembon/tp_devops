@@ -1,0 +1,15 @@
+**/*.pyc
+**/*.pyo
+**/*.mo
+.gitignore
+.git/
+**/__pycache__/
+Dockerfile
+db.sqlite3
+**/*.md
+LICENSE
+VERSION
+README.md
+Changelog.md
+Makefile
+data
