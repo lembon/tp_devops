@@ -8,3 +8,6 @@ class Student(models.Model):
     last_name = models.CharField(max_length=100)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     birthdate = models.DateField(null=True, blank=True)
+    
+    def __str__(self) -> str:
+        return f"{self.last_name}, {self.first_name}"
