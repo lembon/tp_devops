@@ -2,12 +2,14 @@ name: Docker Image build
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    types:
+      - opened
+      - synchronize
 
 jobs:
-
   build:
     name: Build Docker image and push to repositories
     runs-on: ubuntu-latest
@@ -15,16 +17,24 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-  
+
       - name: login to hub  
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-          
+
+      - name: Get Pull Request Number
+        id: pr_number
+        run: echo "::set-output name=number::${{ github.event.pull_request.number }}"
+
+      - name: Determine Tag
+        id: determine_tag
+        run: echo "::set-output name=tag::${{ github.ref == 'refs/heads/main' && 'latest' || 'PR-' }}${{ steps.pr_number.outputs.number }}"
+
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_REPO }}:${{ steps.determine_tag.outputs.tag }}
