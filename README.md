@@ -1,10 +1,6 @@
-# TP DevOps Grupo 2
+# TP DevOps Leonardo Embon
 
-Trabajo práctico del curso DevOps Grupo 2:  
-- Ale Sierraalta
-- Leonardo Embon
-- Ezequiel Kuyumdjian
-- Felipe Bogliacino  
+Trabajo práctico del curso DevOps
 
 ## Instrucciones para correr en desarrollo
 
