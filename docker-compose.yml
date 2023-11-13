@@ -15,7 +15,7 @@ services:
 
   web:
     build: .
-    command: ./manage.py runserver 0.0.0.0:${PORT}
+    command: app/manage.py runserver 0.0.0.0:${PORT}
     env_file:
       - .env
     ports:

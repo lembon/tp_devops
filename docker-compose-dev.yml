@@ -15,9 +15,9 @@ services:
 
   web:
     build: .
-    command: tp_devops_api/manage.py runserver 0.0.0.0:${PORT}
+    command: app/manage.py runserver 0.0.0.0:${PORT}
     volumes:
-      - .:/app
+      - ./tp_devops_api:/app
     env_file:
       - .env
     ports:
